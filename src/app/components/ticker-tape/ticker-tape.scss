@@ -1,0 +1,11 @@
+:host {
+    display: inline-flex;
+    gap: .6rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: clip;
+    padding: .2rem;
+    background-color: #252c33;
+    color: #a1a8ad;
+    max-width: 100vw;
+}

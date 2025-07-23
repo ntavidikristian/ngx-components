@@ -1,0 +1,9 @@
+<span>
+    <span class="ticker-symbol">
+        {{tickerPrice().ticker}} 
+    </span>
+    <span class="ticker-price">
+        {{tickerPrice().price | currency}} 
+    </span>
+    <span class="ticker-delta">{{tickerPrice().delta | number}}</span>
+</span>

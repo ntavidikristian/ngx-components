@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TickerTape } from "./components/ticker-tape/ticker-tape";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [TickerTape],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
