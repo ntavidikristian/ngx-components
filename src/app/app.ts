@@ -9,4 +9,13 @@ import { TickerTape } from "./components/ticker-tape/ticker-tape";
 })
 export class App {
   protected readonly title = signal('ngx-components');
+
+  show = true;
+
+
+  constructor(){
+    // setTimeout(() => {
+    //   this.show = false;
+    // }, 2000);
+  }
 }

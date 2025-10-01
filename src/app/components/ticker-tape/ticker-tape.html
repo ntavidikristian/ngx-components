@@ -1,3 +1,5 @@
-@for (item of prices; track $index) {
-    <app-ticker-symbol [tickerPrice]="item" />
-}
+<div class="tickers-container" #tickersContainer >
+    @for (item of prices; track $index) {
+        <app-ticker-symbol  [tickerPrice]="item" />
+    }
+</div>
