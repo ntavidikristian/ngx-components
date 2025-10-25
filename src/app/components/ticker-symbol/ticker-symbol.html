@@ -1,9 +1,16 @@
 <span>
     <span class="ticker-symbol">
-        {{tickerPrice().ticker}} 
+        {{tickerPrice().ticker}}
     </span>
     <span class="ticker-price">
-        {{tickerPrice().price | currency}} 
+        {{tickerPrice().price | currency}}
     </span>
-    <span class="ticker-delta">{{tickerPrice().delta | number}}</span>
+
+    @let delta = tickerPrice().delta;
+    <span  
+        class="ticker-delta" 
+        [class.negative]="delta < 0" 
+        [class.positive]="delta > 0">
+        {{delta | number}}
+    </span>
 </span>

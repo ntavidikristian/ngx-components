@@ -1,0 +1,117 @@
+
+    <div style="position: relative; width: fit-content;" #leafContainer>
+        <div class="number-container">
+            
+            <div class="upper">
+                <span class="number">
+                    {{nextSymbol()}}
+                </span>
+            </div>
+            
+            <div class="next-bottom">
+                <div class="lower">
+                    <span class="number">
+                        {{currentSymbol()}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="number-container" style="position: absolute; top: 0px;">
+            <div class="upper" data-rotate>
+                <span class="number">
+                    {{currentSymbol()}}
+                </span>
+            </div>
+            <div class="lower" data-rotate>
+                <span class="number" >
+                    {{nextSymbol()}}
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+
+        @keyframes top-rotate {
+            from {
+                transform: rotateX(0deg);
+            }
+            to {
+                transform: rotateX(-90deg);
+            }
+        }
+
+        @keyframes bottom-rotate{
+            from {
+                transform: rotateX(90deg);
+            }
+            to {
+                transform: rotateX(0deg);
+            }
+        }
+
+        *{
+            box-sizing: border-box;
+        }
+        .number-container {
+            perspective: 12rem;
+            
+            /* text-align: center; */
+            width: 5rem;
+            line-height: 3.4rem;
+            display: grid;
+            gap: .1rem;
+            font-size: 5rem;
+            position: relative;
+        }
+
+        .upper,
+        .lower {
+            text-align: center;
+            /* margin: 0; */
+            position: relative;
+            overflow: clip;
+            height: 3rem;
+            background-color: white;
+        }
+
+
+        .upper[data-rotate]{
+            /* transform: rotateX(-0deg); */
+            
+            transform-origin: bottom center;
+        }
+        .animate {
+            --half-animation-duration : .4s;
+            .upper[data-rotate]{
+                animation: var(--half-animation-duration) top-rotate forwards;
+                animation-timing-function: ease-in;
+            }
+
+            .lower[data-rotate]{
+                animation: var(--half-animation-duration) bottom-rotate forwards;
+                animation-timing-function: ease-out;
+                animation-delay: var(--half-animation-duration);
+            }
+        }
+        
+        .lower .number{
+            /* color: red; */
+            position: relative;
+            top: -57%;
+        }
+
+        .lower[data-rotate]{
+            /* background-color: ; */
+            transform: rotateX(90deg);
+            /* opacity: 0; */
+            transform-origin: top center;
+        }
+        .upper .number{
+            /* color: red; */
+            position: relative;
+            bottom: -45%;
+        }
+    </style>

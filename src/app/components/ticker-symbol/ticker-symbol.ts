@@ -10,4 +10,9 @@ import { CurrencyPipe, DecimalPipe } from '@angular/common';
 })
 export class TickerSymbol {
   tickerPrice = input.required<TickerPrice>();
+  fo(){
+    window.addEventListener('visibilityChange', () => {
+      
+    })
+  }
 }

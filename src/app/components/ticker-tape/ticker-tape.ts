@@ -48,7 +48,7 @@ export class TickerTape implements OnInit {
       source$
         .pipe(
           delay(1000),
-          switchMap(() => interval(10).pipe(map((_, index) => index + 10))),
+          switchMap(() => interval(20).pipe(map((_, index) => index + 10))),
           takeUntilDestroyed(this.destroyRef),
           takeUntil(cancel$)
         )
@@ -79,7 +79,7 @@ export class TickerTape implements OnInit {
   protected readonly prices: TickerPrice[] = new Array(100)
     .fill(0)
     .map((_, index) => ({
-      delta: index * 0.1,
+      delta: index  * ( index % 2 ? 1 : -1),
       price: 50 + index,
       ticker: 'A' + index,
     }));

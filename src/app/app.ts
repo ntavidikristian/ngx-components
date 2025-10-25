@@ -1,9 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { TickerTape } from "./components/ticker-tape/ticker-tape";
+import { CalendarLeafComponent } from "./components/calendar-leaf/calendar-leaf.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [TickerTape],
+  imports: [TickerTape, CalendarLeafComponent, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -13,9 +15,15 @@ export class App {
   show = true;
 
 
+  name = 'A';
+
   constructor(){
-    // setTimeout(() => {
-    //   this.show = false;
-    // }, 2000);
+
+    setInterval(() => {
+      this.name = (new Date()).toISOString();
+    }, 1000);
+    setTimeout(() => {
+      this.show = false;
+    }, 2000);
   }
 }
