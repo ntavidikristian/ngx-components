@@ -1,11 +1,9 @@
 import {
   Directive,
-  HostBinding,
-  HostListener,
   input,
   linkedSignal,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -15,26 +13,15 @@ import {
 import { map, scan } from 'rxjs';
 @Directive({
   selector: '[appAnimateDiff]',
+  host: {
+    '[class.decrement]': 'animationDiff() < 0',
+    '[class.increment]': 'animationDiff() > 0',
+    '(animationend)': 'handleAnimationEnd($event)',
+  },
 })
 export class AnimateDiff implements OnDestroy, OnInit {
-  readonly value = input<number>(0, {alias: 'appAnimateDiff'});
-
-  @HostBinding('class.decrement') get _decrement() {
-    return this.animationDiff() < 0;
-  }
-
-  @HostBinding('class.increment') get _increment() {
-    return this.animationDiff() > 0;
-  }
-
-  @HostListener('animationend', ['$event']) handleAnimationEnd(
-    event: AnimationEvent
-  ) {
-    if (event.animationName.startsWith('animate-diff-')) {
-      this.animationDiff.set(0);
-    }
-  }
-
+  readonly value = input<number>(0, { alias: 'appAnimateDiff' });
+  
   private readonly diff = toSignal(
     toObservable(this.value).pipe(
       scan(([previous], current) => [current, previous], [] as number[]),
@@ -43,10 +30,15 @@ export class AnimateDiff implements OnDestroy, OnInit {
     ),
     { initialValue: 0, equal: () => false }
   );
-  private readonly animationDiff = linkedSignal(this.diff);
-
+  protected readonly animationDiff = linkedSignal(this.diff);
   private static count = 0;
   private stylesAppended?: HTMLStyleElement;
+
+  protected handleAnimationEnd(event: AnimationEvent) {
+    if (event.animationName.startsWith('animate-diff-')) {
+      this.animationDiff.set(0);
+    }
+  }
 
   ngOnInit(): void {
     if (!this.stylesAppended) {
