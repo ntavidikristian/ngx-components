@@ -3,19 +3,27 @@
 @if(show){
 <app-ticker-tape></app-ticker-tape>
 }
-<div style="padding: 3rem; display: flex; gap: 1rem;">
+@if(value >0){
+<span appAnimateDiff [value]="value">
+    test
+</span>
+}
+
+
+<input type="number" [(ngModel)]="value">
+<!-- <div style="padding: 3rem; display: flex; gap: 1rem;">
     @for (item of [].constructor(this.timeNow().length); track $index) {
         <app-calendar-leaf [symbol]="timeNow().at($index) || ''" />
     }
-</div>
-<div style="padding: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+</div> -->
+<!-- <div style="padding: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
     @for (item of [].constructor(30); track $index) {
     <app-calendar-leaf [symbol]="name.at($index) || ''" />
     }
 </div>
 <div style="padding: 3rem;">
     <input type="text" placeholder="enter your text" [(ngModel)]="name">
-</div>
+</div> -->
 <!-- </div> -->
 <!-- <div style="width: 30rem; border: 1px solid red;">
     

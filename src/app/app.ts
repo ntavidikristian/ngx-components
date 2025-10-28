@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, HostBinding, signal } from '@angular/core';
 import { TickerTape } from './components/ticker-tape/ticker-tape';
 import { CalendarLeafComponent } from './components/calendar-leaf/calendar-leaf.component';
 import { FormsModule } from '@angular/forms';
 import { format } from 'date-fns';
+import { AnimateDiff } from "./directives/animate-diff";
 
 @Component({
   selector: 'app-root',
-  imports: [TickerTape, CalendarLeafComponent, FormsModule],
+  imports: [TickerTape, CalendarLeafComponent, FormsModule, AnimateDiff],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -16,6 +17,8 @@ export class App {
   show = true;
 
   name = '';
+
+  value = 0;
 
   protected readonly timeNow = signal(this.formatDate(new Date()));
   constructor() {
