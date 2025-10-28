@@ -3,7 +3,11 @@
 @if(show){
 <app-ticker-tape></app-ticker-tape>
 }
-
+<div style="padding: 3rem; display: flex; gap: 1rem;">
+    @for (item of [].constructor(this.timeNow().length); track $index) {
+        <app-calendar-leaf [symbol]="timeNow().at($index) || ''" />
+    }
+</div>
 <div style="padding: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
     @for (item of [].constructor(30); track $index) {
     <app-calendar-leaf [symbol]="name.at($index) || ''" />

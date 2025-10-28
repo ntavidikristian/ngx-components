@@ -1,5 +1,5 @@
 
-    <div style="position: relative; width: fit-content;" #leafContainer>
+    <div class="leaf-container" style="position: relative; width: fit-content;" #leafContainer>
         <div class="number-container">
             
             <div class="upper">
@@ -34,6 +34,11 @@
 
     <style>
 
+        .leaf-container{
+            --font-size: 5rem;
+            --leaf-gap: .1rem;
+        }
+
         @keyframes top-rotate {
             from {
                 transform: rotateX(0deg);
@@ -59,11 +64,12 @@
             perspective: 12rem;
             
             /* text-align: center; */
-            width: 5rem;
-            line-height: 3.4rem;
+            width: var(--font-size);
+            /* line-height: 3.4rem; */
+            line-height: calc(var(--font-size) * 1.61 / 2.5);
             display: grid;
-            gap: .1rem;
-            font-size: 5rem;
+            gap: var(--leaf-gap);
+            font-size: var(--font-size);
             position: relative;
         }
 
@@ -73,8 +79,20 @@
             /* margin: 0; */
             position: relative;
             overflow: clip;
-            height: 3rem;
-            background-color: white;
+            /* height: 3rem; */
+            height: calc(var(--font-size) * 1.61 / 2.7);
+            background-color: rgba(255, 255, 255);
+            border: 1px solid rgba(222, 184, 135, 0.461);
+        }
+        .upper{
+            border-bottom: 0px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+        .lower{
+            border-top: 0px;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
         }
 
 
