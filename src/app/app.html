@@ -1,12 +1,11 @@
 <!-- <div class="tickers-container"> -->
 
 @if(show){
-<app-ticker-tape></app-ticker-tape>
-}
-<!-- @if(value >0){
-<span [appAnimateDiff]=value>
-    test
-</span>
+<app-ticker-tape style="position: sticky; top: 0; z-index: 1;  font-size: 1.2rem;">
+    @for(item of items(); track $index){
+        <app-ticker-symbol [appAnimateDiff]="item.delta" [tickerPrice]="item" />
+    }
+</app-ticker-tape>
 }
 
 

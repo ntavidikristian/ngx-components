@@ -1,12 +1,33 @@
-.ticker-price{
-    color: white;
+.ticker-price {
+  color: white;
 }
-.ticker-delta{
-    &.negative {
-        color: red;
-    }
+.ticker-delta {
+  svg {
+    display: none;
+    transition: all 1000ms ease;
+  }
+  &.negative {
+    --color: red;
 
-    &.positive {
-        color: greenyellow;
+    color: var(--color);
+    svg {
+      display: inline;
+      transform: rotate(180deg);
     }
+    .arrow {
+      fill: var(--color);
+    }
+}
+
+&.positive {
+    --color: greenyellow;
+    svg {
+        display: inline;
+        
+    }
+    color: var(--color);
+    .arrow {
+      fill: var(--color);
+    }
+  }
 }
