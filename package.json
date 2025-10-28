@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "github-build": "ng build --configuration production --base-href 'https://ntavidikristian.github.io/ngx-components/'",
+    "github-deploy": "npx angular-cli-ghpages --dir=dist/ngx-components/browser --no-silent"
   },
   "prettier": {
     "overrides": [

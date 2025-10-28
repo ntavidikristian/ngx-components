@@ -15,7 +15,7 @@ export class App {
 
   show = true;
 
-  name = 'A';
+  name = '';
 
   protected readonly timeNow = signal(this.formatDate(new Date()));
   constructor() {
