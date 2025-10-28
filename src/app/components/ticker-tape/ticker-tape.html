@@ -1,5 +1,5 @@
 <div class="tickers-container" #tickersContainer >
-    @for (item of prices; track $index) {
-        <app-ticker-symbol  [tickerPrice]="item" />
+    @for (item of prices(); track $index) {
+        <app-ticker-symbol [appAnimateDiff]="item.delta"  [tickerPrice]="item" />
     }
 </div>

@@ -8,16 +8,18 @@ import {
   inject,
   NgZone,
   OnInit,
+  signal,
   viewChild,
 } from '@angular/core';
 import { TickerSymbol } from '../ticker-symbol/ticker-symbol';
 import { TickerPrice } from '../../models/ticker-price.model';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { delay, interval, map, Subject, switchMap, takeUntil } from 'rxjs';
+import { AnimateDiff } from '../../directives/animate-diff';
 
 @Component({
   selector: 'app-ticker-tape',
-  imports: [TickerSymbol],
+  imports: [TickerSymbol, AnimateDiff],
   templateUrl: './ticker-tape.html',
   styleUrl: './ticker-tape.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,7 +59,6 @@ export class TickerTape implements OnInit {
         });
 
       const observer = new IntersectionObserver(([entry]) => {
-
         if (!entry.isIntersecting) {
           source$.next();
         }
@@ -73,14 +74,22 @@ export class TickerTape implements OnInit {
   });
 
   ngOnInit(): void {
-    
+    setInterval(() => {
+      this.prices.update((prices) =>
+        prices.map((x, index) =>
+          index % 2 === 0
+            ? { ...x, delta: x.delta + 1, price: x.price + 1 }
+            : { ...x, delta: x.delta - 1, price: x.price - 1 }
+        )
+      );
+    }, 2000);
   }
 
-  protected readonly prices: TickerPrice[] = new Array(100)
-    .fill(0)
-    .map((_, index) => ({
-      delta: index  * ( index % 2 ? 1 : -1),
+  protected prices = signal<TickerPrice[]>(
+    new Array(100).fill(0).map((_, index) => ({
+      delta: index * (index % 2 ? 1 : -1),
       price: 50 + index,
       ticker: 'A' + index,
-    }));
+    }))
+  );
 }

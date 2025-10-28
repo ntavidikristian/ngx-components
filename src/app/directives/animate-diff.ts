@@ -13,40 +13,11 @@ import {
   toSignal,
 } from '@angular/core/rxjs-interop';
 import { map, scan } from 'rxjs';
-
-const style = `
-  @keyframes animate-diff-increment {
-    from {
-      background-color: lightgreen;
-    }
-    to {
-      background-color: transparent;
-    }
-  }
-
-  @keyframes animate-diff-decrement {
-    from {
-      background-color: red;
-    }
-    to {
-      background-color: transparent;
-    }
-  }
-
-  .increment {
-    animation: 1s animate-diff-increment forwards ease;
-  }
-
-  .decrement {
-    animation: 1s animate-diff-decrement forwards ease;
-  }
-`;
-
 @Directive({
   selector: '[appAnimateDiff]',
 })
 export class AnimateDiff implements OnDestroy, OnInit {
-  readonly value = input<number>(0);
+  readonly value = input<number>(0, {alias: 'appAnimateDiff'});
 
   @HostBinding('class.decrement') get _decrement() {
     return this.animationDiff() < 0;
@@ -76,13 +47,11 @@ export class AnimateDiff implements OnDestroy, OnInit {
 
   private static count = 0;
   private stylesAppended?: HTMLStyleElement;
-  constructor() {
-  }
 
   ngOnInit(): void {
     if (!this.stylesAppended) {
       this.stylesAppended = document.createElement('style');
-      this.stylesAppended.innerHTML = style;
+      this.stylesAppended.innerHTML = AnimateDiff.AppendedStyles;
       document.head.append(this.stylesAppended);
     }
     AnimateDiff.count++;
@@ -94,4 +63,32 @@ export class AnimateDiff implements OnDestroy, OnInit {
       this.stylesAppended = undefined;
     }
   }
+
+  private static readonly AppendedStyles = `
+  @keyframes animate-diff-increment {
+    from {
+      background-color: rgba(0,255,0, .66);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+
+  @keyframes animate-diff-decrement {
+    from {
+      background-color: rgba(255,0,0, .66);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+
+  .increment {
+    animation: 1s animate-diff-increment forwards ease;
+  }
+
+  .decrement {
+    animation: 1s animate-diff-decrement forwards ease;
+  }
+`;
 }
